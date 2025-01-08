@@ -3,6 +3,9 @@ package com.developer.bookStore.service;
 import com.developer.bookStore.model.Books;
 import com.developer.bookStore.repository.BooksRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,5 +27,13 @@ public class BooksService {
 
     public Books addBook(Books book) {
        return repo.save(book);
+    }
+
+    public void updateBook(Books book) {
+        repo.save(book);
+    }
+
+    public void deleteBook(int id) {
+        repo.deleteById(id);
     }
 }

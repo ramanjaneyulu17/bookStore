@@ -39,4 +39,27 @@ public class BooksController {
     public ResponseEntity<Books> addBook(@RequestBody Books book){
         return new ResponseEntity<>(service.addBook(book), HttpStatus.CREATED);
     }
+
+    @PutMapping("/books")
+    public ResponseEntity<String> updateBook(@RequestBody Books book){
+        Optional<Books> books = service.findById(book.getId());
+        if(books.isPresent()){
+            service.updateBook(book);
+            return new ResponseEntity<>("Updated",HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @DeleteMapping("/books/{id}")
+    public ResponseEntity<String> deleteBook(@PathVariable int id) {
+        Optional<Books> book = service.findById(id);
+        if (book.isPresent()) {
+            service.deleteBook(id);
+            return new ResponseEntity<>("Deleted", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
+        }
+    }
 }
